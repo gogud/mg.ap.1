@@ -16,6 +16,8 @@ import com.example.mg_win.cloudfaceapi.Utils.FaceIdentify;
 import com.example.mg_win.cloudfaceapi.Utils.FaceIdentifyResponse;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchImage extends AppCompatActivity implements FaceDetectResponse, FaceIdentifyResponse, FaceEnrollResponse {
 
@@ -42,6 +44,13 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
         ImageView imgFavorite = (ImageView) findViewById(R.id.imageView);
         imgFavorite.setClickable(true);
+
+        imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImagesOnImageGrid();
+            }
+        });
 
         // image on Click for ident images
 
@@ -116,6 +125,18 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
     }
 
 
+    public void showImagesOnImageGrid() {
 
+        ArrayList<Bitmap> bitmapArray = new ArrayList<Bitmap>();
+        bitmapArray.add(finalImage); // Add a bitmap
+        bitmapArray.add(finalImage);
+        bitmapArray.add(finalImage);
+        bitmapArray.add(finalImage);
+
+
+        Intent enroll_Result = new Intent(this, EnrollResultActivity.class);
+        enroll_Result.putExtra("images", bitmapArray);
+        startActivity(enroll_Result);
+    }
 
 }

@@ -12,13 +12,15 @@ import com.example.mg_win.cloudfaceapi.Utils.ImageLoader;
 
 public class IdentResultActivity extends AppCompatActivity {
 
+    Toolbar toolbar = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ident_result);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbar.setTitle("Into The Wild");
 
@@ -33,7 +35,7 @@ public class IdentResultActivity extends AppCompatActivity {
         imageBase.setImageBitmap(bmp);
 
 
-        new ImageLoader((ImageView) findViewById(R.id.imageViewFound)).execute(identResult[1]);
+        //new ImageLoader((ImageView) findViewById(R.id.imageViewFound)).execute(identResult[1]);
     }
 
 }

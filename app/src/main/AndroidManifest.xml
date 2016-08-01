@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".SearchImage" />
         <activity android:name=".IdentResultActivity" />
+        <activity android:name=".EnrollResultActivity"></activity>
     </application>
 
 </manifest>
