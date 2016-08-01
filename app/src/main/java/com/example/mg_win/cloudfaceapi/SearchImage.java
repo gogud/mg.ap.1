@@ -73,15 +73,23 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         int x2 = Integer.parseInt(faceBoundings[2]);
         int y2 = Integer.parseInt(faceBoundings[3]);
         */
-        int height = faceBoundings.y2 - faceBoundings.y1;
-        int width = faceBoundings.x2 - faceBoundings.x1;
 
-        Bitmap bmp = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length);
-        finalImage = Bitmap.createBitmap(bmp, faceBoundings.x1, faceBoundings.y1, width, height);
+        finalImage = convertToBitmap(faceBoundings);
 
         ImageView image = (ImageView) findViewById(R.id.imageView);
 
         image.setImageBitmap(finalImage);
+    }
+
+    public Bitmap convertToBitmap(FaceDetect.FaceBounds faceBoundings) {
+
+        int height = faceBoundings.y2 - faceBoundings.y1;
+        int width = faceBoundings.x2 - faceBoundings.x1;
+
+        Bitmap bmp = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length);
+        Bitmap tempImage = Bitmap.createBitmap(bmp, faceBoundings.x1, faceBoundings.y1, width, height);
+
+        return tempImage;
     }
 
 
@@ -128,11 +136,12 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
     public void showImagesOnImageGrid() {
 
         ArrayList<Bitmap> bitmapArray = new ArrayList<Bitmap>();
-        bitmapArray.add(finalImage); // Add a bitmap
-        bitmapArray.add(finalImage);
-        bitmapArray.add(finalImage);
-        bitmapArray.add(finalImage);
 
+
+        for(int i = 0; i < faceBoundses.length; i++) {
+
+            bitmapArray.add(convertToBitmap(faceBoundses[i]));
+        }
 
         Intent enroll_Result = new Intent(this, EnrollResultActivity.class);
         enroll_Result.putExtra("images", bitmapArray);
