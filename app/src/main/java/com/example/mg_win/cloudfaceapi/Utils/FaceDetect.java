@@ -1,6 +1,7 @@
 package com.example.mg_win.cloudfaceapi.Utils;
 
 
+import android.hardware.camera2.params.Face;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -17,16 +18,30 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by mg-Win on 27.07.2016.
  */
-public class FaceDetect extends AsyncTask<Object, Boolean, String[]> {
+public class FaceDetect extends AsyncTask<Object, Boolean, FaceDetect.FaceBounds[]> {
 
     public FaceDetectResponse delegate = null;
 
-    public static String[] detect(byte[] imageArray) {
 
-        String[] faceBoundings = new String[4];
+    public static class FaceBounds {
+        public int x1;
+        public int y1;
+        public int x2;
+        public int y2;
+    }
+
+
+    public static FaceBounds[] detect(byte[] imageArray) {
+
+        FaceBounds[] faceBoundses = null;
+        int faceCount = 0;
+
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost post = new HttpPost("https://api.findface.pro/detect/");
@@ -44,39 +59,42 @@ public class FaceDetect extends AsyncTask<Object, Boolean, String[]> {
                 String json_string = EntityUtils.toString(response.getEntity());
                 JSONObject jsonObject = new JSONObject(json_string);
 
-                int faceCount = jsonObject.getJSONArray("faces").length();
+                faceCount = jsonObject.getJSONArray("faces").length();
 
-                if (faceCount == 1) {
+                faceBoundses = new FaceBounds[faceCount];
+
+                for (int i = 0; i < faceCount; i++) {
+                    faceBoundses[i] = new FaceBounds();
 
                     JSONArray faceArray = jsonObject.getJSONArray("faces");
-                    faceBoundings[0] = faceArray.getJSONObject(0).getString("x1");
-                    faceBoundings[1] = faceArray.getJSONObject(0).getString("y1");
-                    faceBoundings[2] = faceArray.getJSONObject(0).getString("x2");
-                    faceBoundings[3] = faceArray.getJSONObject(0).getString("y2");
 
-                } else {
+                    faceBoundses[i].x1 = Integer.parseInt(faceArray.getJSONObject(i).getString("x1"));
+                    faceBoundses[i].y1 = Integer.parseInt(faceArray.getJSONObject(i).getString("y1"));
+                    faceBoundses[i].x2 = Integer.parseInt(faceArray.getJSONObject(i).getString("x2"));
+                    faceBoundses[i].y2 = Integer.parseInt(faceArray.getJSONObject(i).getString("y2"));
 
                 }
+
             }
 
             Log.d("Http Post Request: ", response.toString());
 
-            return faceBoundings;
+            return faceBoundses;
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        return null;
+        return faceBoundses;
     }
 
     @Override
-    protected String[] doInBackground(Object[] params) {
+    protected FaceBounds[] doInBackground(Object[] params) {
 
         if (params[0].toString() == "detect") {
             Log.d("DoInBackground: ", params[0].toString());
 
-            String[] detectResponse = detect((byte[]) params[1]);
+            FaceBounds[] detectResponse = detect((byte[]) params[1]);
 
             if (detectResponse != null) {
                 return detectResponse;
@@ -88,7 +106,7 @@ public class FaceDetect extends AsyncTask<Object, Boolean, String[]> {
     }
 
     @Override
-    protected void onPostExecute(String[] result) {
+    protected void onPostExecute(FaceBounds[] result) {
         //super.execute(result);
         delegate.processDetectFinish(result);
     }
