@@ -32,8 +32,6 @@ import butterknife.InjectView;
  */
 public class PopUpScreen extends AppCompatActivity {
 
-    String sadasd = "";
-
     public static final String TAG = "PopUpScreen";
     public static final String EXTRA_NAME = "images";
 
