@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_weight="1"
+    tools:context="com.example.mg_win.cloudfaceapi.SearchImage">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        android:layout_above="@+id/button_sendSearch"
+       />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/search_button_image"
+        android:id="@+id/button_sendSearch"
+        android:text="@string/sorgula_button"
+        android:layout_marginLeft="10px"
+        android:onClick="makeIdentify"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/button_enrollImage"
+        android:layout_marginEnd="35dp" />
+
+    <!--    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sendSearch_button_text"
+        android:id="@+id/button_sendSearch"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="makeIdentify" /> -->
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/save_button_image"
+        android:id="@+id/button_enrollImage"
+        android:text="@string/kaydet_button"
+        android:scaleType="fitStart"
+        android:layout_marginRight="10px"
+        android:onClick="makeEnrollment"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_marginEnd="111dp" />
+
+
+    <!--  <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Kaydet"
+          android:id="@+id/button_enrollImage"
+          android:layout_alignParentBottom="true"
+          android:layout_centerHorizontal="true"
+          android:layout_toRightOf="@id/button_sendSearch"
+          android:onClick="makeEnrollment"/>   -->
+
+</RelativeLayout>

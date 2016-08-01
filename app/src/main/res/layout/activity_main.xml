@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/multimodal"
+    tools:context="com.example.mg_win.cloudfaceapi.MainActivity">
+
+   <Button
+
+       android:layout_width="90dp"
+       android:layout_height="90dp"
+       android:text="@string/search_button_text"
+       android:textSize="9sp"
+       android:id="@+id/button_search"
+       android:background="@drawable/circle"
+       android:padding="30dp"
+       android:layout_marginBottom="50dp"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true" />
+
+  <!-- <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_button_text"
+        android:id="@+id/button_search"
+       android:gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="184dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />-->
+
+</RelativeLayout>

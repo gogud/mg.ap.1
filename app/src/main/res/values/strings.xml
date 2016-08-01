@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PYüz@1-M</string>
+    <string name="pick_image_intent_text">Resmi Seç</string>
+    <string name="search_button_text">Başlat</string>
+    <string name="image_not_selected_text">Lütfen Resim Seçiniz</string>
+    <string name="sendSearch_button_text">Sorgula</string>
+    <string name="kaydet_button">Kaydet</string>
+    <string name="sorgula_button">Sorgula</string>
+</resources>
