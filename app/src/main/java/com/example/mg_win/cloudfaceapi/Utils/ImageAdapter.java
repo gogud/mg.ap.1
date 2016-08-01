@@ -1,6 +1,7 @@
 package com.example.mg_win.cloudfaceapi.Utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -25,8 +26,9 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public Bitmap getItem(int position) {
+
+        return EnrollResultActivity.splittedBitmaps.get(position);
     }
 
     @Override
@@ -38,8 +40,8 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ImageView imageView = new ImageView(mContext);
-        imageView.setLayoutParams(new GridView.LayoutParams(30, 30));
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageView.setPadding(1, 1, 1, 1);
 
         //Set Image Bitmap Here*****

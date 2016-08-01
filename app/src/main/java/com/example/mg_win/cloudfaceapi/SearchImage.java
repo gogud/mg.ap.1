@@ -33,6 +33,7 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_image);
 
+
         Bundle extras = getIntent().getExtras();
         byte[] imageArray = extras.getByteArray("ImageArray");
         rawImage = imageArray;
@@ -52,6 +53,8 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
             }
         });
 
+
+
         // image on Click for ident images
 
     }
@@ -61,25 +64,19 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         faceBoundses = new FaceDetect.FaceBounds[output.length];
         faceBoundses = output;
 
-        setImagetoImageView(faceBoundses[0]);
+        setImagetoImageViewByBounds(faceBoundses[0]);
     }
 
 
-    public void setImagetoImageView(FaceDetect.FaceBounds faceBoundings) {
-
-        /*
-        int x1 = faceBoundings.x1;
-        int y1 = faceBoundings.y1;
-        int x2 = Integer.parseInt(faceBoundings[2]);
-        int y2 = Integer.parseInt(faceBoundings[3]);
-        */
-
+    public void setImagetoImageViewByBounds(FaceDetect.FaceBounds faceBoundings) {
         finalImage = convertToBitmap(faceBoundings);
 
         ImageView image = (ImageView) findViewById(R.id.imageView);
 
         image.setImageBitmap(finalImage);
     }
+
+
 
     public Bitmap convertToBitmap(FaceDetect.FaceBounds faceBoundings) {
 
@@ -139,7 +136,6 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
 
         for(int i = 0; i < faceBoundses.length; i++) {
-
             bitmapArray.add(convertToBitmap(faceBoundses[i]));
         }
 
