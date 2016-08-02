@@ -22,7 +22,7 @@ public class IdentResultActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
-        collapsingToolbar.setTitle("Into The Wild");
+        //collapsingToolbar.setTitle("Into The Wild");
 
         Bundle extras = getIntent().getExtras();
         byte[] baseImage = extras.getByteArray("BaseImage");
