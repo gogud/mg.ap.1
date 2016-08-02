@@ -3,10 +3,12 @@ package com.example.mg_win.cloudfaceapi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mg_win.cloudfaceapi.Utils.FaceDetect;
 import com.example.mg_win.cloudfaceapi.Utils.FaceDetectResponse;
@@ -80,6 +82,18 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
     @Override
     public void processDetectFinish(FaceDetect.FaceBounds[] output) {
+
+        if (output.length == 0) {
+            Toast.makeText(this,"Yüz Bulunamadı!",Toast.LENGTH_LONG).show();
+            SystemClock.sleep(1000);
+
+            Intent mainActivity = new Intent(this, MainActivity.class);
+            startActivity(mainActivity);
+            finish();
+
+            return;
+        }
+
         faceBoundses = new FaceDetect.FaceBounds[output.length];
         faceBoundses = output;
 
@@ -104,6 +118,7 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
         Bitmap bmp = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length);
         Bitmap tempImage = Bitmap.createBitmap(bmp, faceBoundings.x1, faceBoundings.y1, width, height);
+
 
         return tempImage;
     }
