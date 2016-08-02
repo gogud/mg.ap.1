@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_ID = 234; // the number doesn't matter
 
+    String className = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent intent_SearchImage = new Intent(this, SearchImage.class);
                     intent_SearchImage.putExtra("ImageArray", byteArray_image);
-                 //   intent_SearchImage.putExtra("ImageUri", imageUri);
+                    intent_SearchImage.putExtra("ClassName", className);
+                    intent_SearchImage.putExtra("ImagePos", -1);
                     startActivity(intent_SearchImage);
                     finish();
 

@@ -35,15 +35,17 @@ public class FaceIdentify extends AsyncTask<Object, Boolean, String[]> {
             MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
             entity.addPart("photo", new ByteArrayBody(imageArray, "image/jpeg", "photo"));
-            entity.addPart("x1", new StringBody(imageBoundings[0]));
-            entity.addPart("y1", new StringBody(imageBoundings[1]));
-            entity.addPart("x2", new StringBody(imageBoundings[2]));
-            entity.addPart("y2", new StringBody(imageBoundings[3]));
+            entity.addPart("confidence", new StringBody("Strict"));
 
+            if (imageBoundings != null) {
+                entity.addPart("x1", new StringBody(imageBoundings[0]));
+                entity.addPart("y1", new StringBody(imageBoundings[1]));
+                entity.addPart("x2", new StringBody(imageBoundings[2]));
+                entity.addPart("y2", new StringBody(imageBoundings[3]));
+            }
             post.setEntity(entity);
 
             HttpResponse response = httpClient.execute(post);
-
 
 
             if (response.getEntity().getContentLength() > 0) {

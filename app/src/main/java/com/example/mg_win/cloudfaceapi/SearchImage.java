@@ -25,6 +25,7 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
     byte[] rawImage = null;
     Bitmap finalImage = null;
     String[] faceBounds = null;
+    String className = null;
 
     FaceDetect.FaceBounds[] faceBoundses = null;
 
@@ -33,25 +34,43 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_image);
 
+        ImageView imgFavorite = (ImageView) findViewById(R.id.imageView);
 
         Bundle extras = getIntent().getExtras();
         byte[] imageArray = extras.getByteArray("ImageArray");
+        className = extras.getString("ClassName");
+        int imgPos = extras.getInt("ImagePos");
+
         rawImage = imageArray;
 
-        FaceDetect faceDetect = new FaceDetect();
-        faceDetect.delegate = this;
+        if (className.equalsIgnoreCase("MainActivity")) {
 
-        faceDetect.execute("detect", imageArray);
 
-        ImageView imgFavorite = (ImageView) findViewById(R.id.imageView);
-        imgFavorite.setClickable(true);
+            FaceDetect faceDetect = new FaceDetect();
+            faceDetect.delegate = this;
 
-        imgFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showImagesOnImageGrid();
-            }
-        });
+            faceDetect.execute("detect", imageArray);
+
+
+            imgFavorite.setClickable(true);
+
+            imgFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showImagesOnImageGrid();
+                }
+            });
+
+
+        } else {
+            Bitmap bmpSelected = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
+            ImageView image = (ImageView) findViewById(R.id.imageView);
+            image.setImageBitmap(bmpSelected);
+
+            finalImage = bmpSelected;
+
+            imgFavorite.setClickable(false);
+        }
 
 
 
@@ -107,6 +126,8 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
         Intent intent_identResult = new Intent(this, IdentResultActivity.class);
         intent_identResult.putExtra("IdentResult", output);
+
+        // rawImage Null geliyor.
         intent_identResult.putExtra("BaseImage", rawImage);
         startActivity(intent_identResult);
         finish();

@@ -23,6 +23,8 @@ public class EnrollResultActivity extends AppCompatActivity {
     ImageAdapter imageAdapter = null;
     GridView gridView = null;
 
+    String className = "EnrollResult";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +58,12 @@ public class EnrollResultActivity extends AppCompatActivity {
         tmpImg.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
 
+
+
         Intent intent = new Intent(this, SearchImage.class);
         intent.putExtra("ImageArray", byteArray);
+        intent.putExtra("ImagePos", pos);
+        intent.putExtra("ClassName", className);
         startActivity(intent);
     }
 }
