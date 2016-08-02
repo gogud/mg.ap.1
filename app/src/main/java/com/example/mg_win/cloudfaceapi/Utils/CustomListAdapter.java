@@ -36,7 +36,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textView_score);
 
-        ImageView image = (ImageView) listViewItem.findViewById(R.id.imageViewFound);
+        ImageView image = (ImageView) listViewItem.findViewById(R.id.imageView_score);
 
         textViewName.setText(names[position]);
 
