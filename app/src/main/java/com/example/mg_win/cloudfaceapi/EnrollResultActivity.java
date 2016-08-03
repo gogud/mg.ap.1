@@ -29,6 +29,11 @@ public class EnrollResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enroll_result);
 
+        // Bar icon
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.pap_icon);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         splittedBitmaps = getIntent().getParcelableArrayListExtra("images");
         gridView = (GridView) findViewById(R.id.enrollGridView);
         gridView.setAdapter(new ImageAdapter(this));
@@ -67,9 +72,9 @@ public class EnrollResultActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
-        Intent main = new Intent(this , MainActivity.class);
-        startActivity(main);
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
+        finish();
     }
 }

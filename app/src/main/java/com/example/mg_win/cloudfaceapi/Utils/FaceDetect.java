@@ -1,6 +1,9 @@
 package com.example.mg_win.cloudfaceapi.Utils;
 
 
+import android.app.Application;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.hardware.camera2.params.Face;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -27,6 +30,7 @@ import java.util.List;
 public class FaceDetect extends AsyncTask<Object, Boolean, FaceDetect.FaceBounds[]> {
 
     public FaceDetectResponse delegate = null;
+
 
 
     public static class FaceBounds {
@@ -108,6 +112,12 @@ public class FaceDetect extends AsyncTask<Object, Boolean, FaceDetect.FaceBounds
     @Override
     protected void onPostExecute(FaceBounds[] result) {
         //super.execute(result);
+
         delegate.processDetectFinish(result);
+    }
+
+    @Override
+    protected void onPreExecute() {
+
     }
 }

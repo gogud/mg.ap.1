@@ -1,5 +1,6 @@
 package com.example.mg_win.cloudfaceapi;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -26,12 +27,7 @@ public class IdentResultActivity extends AppCompatActivity {
     public static FaceIdentify.FaceIdentResultParams[] faceIdentResultParamses;
 
     private ListView listView;
-    private String names[] = {
-            "1",
-            "2",
-            "3",
-            "4"
-    };
+
 
 
 /*
@@ -47,6 +43,11 @@ public class IdentResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ident_result);
+
+        // Bar icon
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.pap_icon);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         //toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -74,6 +75,13 @@ public class IdentResultActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
+        finish();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.mg_win.cloudfaceapi.Utils;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -20,6 +22,8 @@ import org.json.JSONObject;
  * Created by mg-Win on 27.07.2016.
  */
 public class FaceIdentify extends AsyncTask<Object, Boolean, FaceIdentify.FaceIdentResultParams[]> {
+
+
 
     public FaceIdentifyResponse delegate = null;
 
@@ -105,5 +109,11 @@ public class FaceIdentify extends AsyncTask<Object, Boolean, FaceIdentify.FaceId
     protected void onPostExecute(FaceIdentResultParams[] result) {
         //super.execute(result);
         delegate.processIdentifyFinish(result);
+
+    }
+
+    @Override
+    protected void onPreExecute() {
+
     }
 }

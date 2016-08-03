@@ -38,6 +38,11 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_image);
 
+        // Bar icon
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.pap_icon);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         ImageView imgFavorite = (ImageView) findViewById(R.id.imageView);
 
         Bundle extras = getIntent().getExtras();
@@ -171,8 +176,17 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
 
     @Override
-    public void processEnrollFinish(String[] output) {
+    public void processEnrollFinish(Boolean output) {
 
+        if (output == true) {
+            Toast.makeText(this,"Fotoğraf Kaydedildi!",Toast.LENGTH_LONG).show();
+
+            Intent mainActivity = new Intent(this, MainActivity.class);
+            startActivity(mainActivity);
+            finish();
+
+            return;
+        }
     }
 
 
@@ -190,4 +204,10 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         startActivity(enroll_Result);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
+        finish();
+    }
 }

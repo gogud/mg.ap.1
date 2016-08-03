@@ -1,5 +1,7 @@
 package com.example.mg_win.cloudfaceapi.Utils;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -22,12 +24,15 @@ import java.io.FileOutputStream;
 /**
  * Created by mg-Win on 28.07.2016.
  */
-public class FaceEnroll extends AsyncTask<Object, Boolean, String[]> {
+public class FaceEnroll extends AsyncTask<Object, Boolean, Boolean> {
+
+
 
     public FaceEnrollResponse delegate = null;
 
-    public static void enroll(byte[] imageArray) {
+    public static Boolean isEnrolled = false;
 
+    public static Boolean enroll(byte[] imageArray) {
 
 
         try {
@@ -52,31 +57,37 @@ public class FaceEnroll extends AsyncTask<Object, Boolean, String[]> {
                 String json_string = EntityUtils.toString(response.getEntity());
                 JSONObject jsonObject = new JSONObject(json_string);
 
-                String qweqe = "qwe";
+                isEnrolled = true;
+                return true;
 
 
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
+        return false;
     }
 
     @Override
-    protected String[] doInBackground(Object... params) {
+    protected Boolean doInBackground(Object... params) {
         if (params[0].toString() == "enroll") {
             Log.d("DoInBackground: ", params[0].toString());
 
             enroll((byte[]) params[1]);
         }
-        return null;
+        return isEnrolled;
     }
 
 
     @Override
-    protected void onPostExecute(String[] result) {
+    protected void onPostExecute(Boolean isEnrolled) {
         //super.execute(result);
-        delegate.processEnrollFinish(result);
+        delegate.processEnrollFinish(isEnrolled);
+
     }
 
+    @Override
+    protected void onPreExecute() {
+
+    }
 }
