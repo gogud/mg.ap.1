@@ -3,9 +3,9 @@ package com.example.mg_win.cloudfaceapi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -19,7 +19,6 @@ import com.example.mg_win.cloudfaceapi.Utils.FaceIdentifyResponse;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchImage extends AppCompatActivity implements FaceDetectResponse, FaceIdentifyResponse, FaceEnrollResponse {
 
@@ -30,7 +29,6 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
     String className = null;
 
     FaceDetect.FaceBounds[] faceBoundses = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,6 +176,13 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         Intent enroll_Result = new Intent(this, EnrollResultActivity.class);
         enroll_Result.putExtra("images", bitmapArray);
         startActivity(enroll_Result);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent main = new Intent(this , MainActivity.class);
+        startActivity(main);
     }
 
 }

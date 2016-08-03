@@ -1,9 +1,9 @@
 package com.example.mg_win.cloudfaceapi;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -56,6 +56,7 @@ public class IdentResultActivity extends AppCompatActivity {
 
 
         CustomListAdapter customListAdapter = new CustomListAdapter(this, names,  imageid);
+
         listView = (ListView) findViewById(R.id.listview_score);
         listView.setAdapter(customListAdapter);
 
@@ -64,6 +65,12 @@ public class IdentResultActivity extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public void onBackPressed()
+    {
+        Intent main = new Intent(this , MainActivity.class);
+        startActivity(main);
     }
 
 }

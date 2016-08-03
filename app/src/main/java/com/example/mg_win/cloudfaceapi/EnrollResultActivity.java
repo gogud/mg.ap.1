@@ -2,9 +2,8 @@ package com.example.mg_win.cloudfaceapi;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -65,5 +64,12 @@ public class EnrollResultActivity extends AppCompatActivity {
         intent.putExtra("ImagePos", pos);
         intent.putExtra("ClassName", className);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent main = new Intent(this , MainActivity.class);
+        startActivity(main);
     }
 }
