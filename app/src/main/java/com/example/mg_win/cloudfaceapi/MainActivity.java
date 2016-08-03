@@ -3,9 +3,8 @@ package com.example.mg_win.cloudfaceapi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_ID = 234; // the number doesn't matter
 
     String className = "MainActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
                 super.onActivityResult(requestCode, resultCode, data);
                 break;
         }
+    }
+    @Override
+    public void onBackPressed()
+    {
+
+
     }
 
 }
