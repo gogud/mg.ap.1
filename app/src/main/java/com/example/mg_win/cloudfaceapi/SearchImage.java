@@ -26,10 +26,12 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
     byte[] rawImage = null;
     Bitmap finalImage = null;
+    byte[] finalImageByteArray = null;
     String[] faceBounds = null;
     String className = null;
 
     FaceDetect.FaceBounds[] faceBoundses = null;
+    FaceIdentify.FaceIdentResultParams[] faceIdentResultParamses = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,20 +132,28 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         finalImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
+        finalImageByteArray = stream.toByteArray();
 
 
-        faceIdentify.execute("identify", byteArray, faceBounds);
+        faceIdentify.execute("identify", finalImageByteArray, faceBounds);
     }
 
     @Override
-    public void processIdentifyFinish(String[] output) {
+    public void processIdentifyFinish(FaceIdentify.FaceIdentResultParams[] output) {
+
+        faceIdentResultParamses = new FaceIdentify.FaceIdentResultParams[output.length];
+        faceIdentResultParamses = output;
+
+        ArrayList<String> resultArrayList = new ArrayList<String>();
+
+        for (int i = 0; i < faceIdentResultParamses.length; i++) {
+            resultArrayList.add(faceIdentResultParamses[i].confidence);
+            resultArrayList.add(faceIdentResultParamses[i].thumbnail);
+        }
 
         Intent intent_identResult = new Intent(this, IdentResultActivity.class);
-        intent_identResult.putExtra("IdentResult", output);
-
-        // rawImage Null geliyor.
-        intent_identResult.putExtra("BaseImage", rawImage);
+        intent_identResult.putExtra("IdentResults", resultArrayList);
+        intent_identResult.putExtra("BaseImage", finalImageByteArray);
         startActivity(intent_identResult);
         finish();
     }

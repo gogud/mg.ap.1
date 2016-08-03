@@ -10,11 +10,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.mg_win.cloudfaceapi.Utils.CustomListAdapter;
+import com.example.mg_win.cloudfaceapi.Utils.FaceIdentify;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IdentResultActivity extends AppCompatActivity {
     ListView list;
 
     Toolbar toolbar = null;
+
+    public static List<Bitmap> splittedBitmaps;
+    public static ArrayList<String> resultArrayList;
+
+    public static FaceIdentify.FaceIdentResultParams[] faceIdentResultParamses;
 
     private ListView listView;
     private String names[] = {
@@ -25,13 +34,14 @@ public class IdentResultActivity extends AppCompatActivity {
     };
 
 
-
+/*
     private Integer imageid[] = {
             R.drawable.logo,
             R.drawable.logo,
             R.drawable.logo,
             R.drawable.logo
     };
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +55,9 @@ public class IdentResultActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         byte[] baseImage = extras.getByteArray("BaseImage");
-        String[] identResult = extras.getStringArray("IdentResult");
+        resultArrayList = extras.getStringArrayList("IdentResults");
 
-
+        // Resimleri aldık burda bastıracağız, confidence ve thumbnail.
 
         Bitmap bmp = BitmapFactory.decodeByteArray(baseImage, 0, baseImage.length);
         ImageView imageBase = (ImageView) findViewById(R.id.imageViewSource);
@@ -55,7 +65,7 @@ public class IdentResultActivity extends AppCompatActivity {
         imageBase.setImageBitmap(bmp);
 
 
-        CustomListAdapter customListAdapter = new CustomListAdapter(this, names,  imageid);
+        CustomListAdapter customListAdapter = new CustomListAdapter(this, resultArrayList);
         listView = (ListView) findViewById(R.id.listview_score);
         listView.setAdapter(customListAdapter);
 
