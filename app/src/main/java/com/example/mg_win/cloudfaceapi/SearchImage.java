@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -60,6 +61,8 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
             faceDetect.execute("detect", imageArray);
 
+            // Lock GUI
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
             imgFavorite.setClickable(true);
 
@@ -74,8 +77,10 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         } else {
             Bitmap bmpSelected = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
             ImageView image = (ImageView) findViewById(R.id.imageView);
-            image.setImageBitmap(bmpSelected);
 
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            image.setImageBitmap(bmpSelected);
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             finalImage = bmpSelected;
 
             imgFavorite.setClickable(false);
@@ -98,6 +103,8 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
             startActivity(mainActivity);
             finish();
 
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             return;
         }
 
@@ -105,15 +112,21 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         faceBoundses = output;
 
         setImagetoImageViewByBounds(faceBoundses[0]);
+
+        this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
 
     public void setImagetoImageViewByBounds(FaceDetect.FaceBounds faceBoundings) {
+
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         finalImage = convertToBitmap(faceBoundings);
 
         ImageView image = (ImageView) findViewById(R.id.imageView);
 
         image.setImageBitmap(finalImage);
+
+        this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
 
@@ -132,6 +145,8 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
 
     public void makeIdentify(View view) {
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         FaceIdentify faceIdentify = new FaceIdentify();
         faceIdentify.delegate = this;
 
@@ -145,6 +160,19 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
     @Override
     public void processIdentifyFinish(FaceIdentify.FaceIdentResultParams[] output) {
+
+        if (output == null) {
+            Toast.makeText(this,"Yüz Bulunamadı!",Toast.LENGTH_LONG).show();
+            SystemClock.sleep(1000);
+
+            Intent mainActivity = new Intent(this, MainActivity.class);
+            startActivity(mainActivity);
+            finish();
+
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            return;
+        }
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         faceIdentResultParamses = new FaceIdentify.FaceIdentResultParams[output.length];
         faceIdentResultParamses = output;
@@ -164,6 +192,9 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
     }
 
     public void makeEnrollment(View view) {
+
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         FaceEnroll faceEnroll = new FaceEnroll();
         faceEnroll.delegate = this;
 
@@ -172,6 +203,7 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
         byte[] byteArray = stream.toByteArray();
         faceEnroll.execute("enroll", byteArray);
     }
+
 
 
 
@@ -185,12 +217,16 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
             startActivity(mainActivity);
             finish();
 
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             return;
         }
     }
 
 
     public void showImagesOnImageGrid() {
+
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         ArrayList<Bitmap> bitmapArray = new ArrayList<Bitmap>();
 
@@ -206,6 +242,8 @@ public class SearchImage extends AppCompatActivity implements FaceDetectResponse
 
     @Override
     public void onBackPressed() {
+        this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         Intent mainActivity = new Intent(this, MainActivity.class);
         startActivity(mainActivity);
         finish();
